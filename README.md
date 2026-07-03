@@ -1,33 +1,56 @@
 # Baobab Server
 
-Baobab Digital Solutions API Server - A Node.js/Express-based REST API server.
+API Server pour Baobab Digital Solutions - Fournit accès aux produits et contenus vidéos de formation.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or yarn
+- npm ou yarn
 
 ### Installation
 
 ```bash
-# Clone the repository
+# Cloner le repository
 git clone https://github.com/joelessam15-lab/baobab-server.git
 cd baobab-server
 
-# Install dependencies
+# Installer les dépendances
 npm install
 
-# Start the server
+# Démarrer le serveur
 npm start
 ```
 
-The server will run on `http://localhost:3000`
+Le serveur va tourner sur `http://localhost:8081`
 
 ## 📚 API Endpoints
 
-- **GET /** - Welcome message and server status
-- **GET /health** - Health check endpoint
+### Health Check
+- **GET /health** - Vérifier que le serveur fonctionne
+  ```json
+  { "status": "ok", "message": "Baobab Server is running on Railway!" }
+  ```
+
+### Produits
+- **GET /api/products** - Liste de tous les produits Baobab
+  ```json
+  [
+    { "id": 1, "name": "Kit de démarrage digital", "price": 25000 },
+    { "id": 2, "name": "Formation 5 jours", "price": 35000 },
+    ...
+  ]
+  ```
+
+### Vidéos de Formation
+- **GET /api/videos** - Liste des modules vidéo
+  ```json
+  [
+    { "id": 1, "title": "Module 1 - Stratégie digitale" },
+    { "id": 2, "title": "Module 2 - Présence en ligne" },
+    ...
+  ]
+  ```
 
 ## 🐳 Docker Deployment
 
@@ -38,93 +61,74 @@ docker build -t baobab-server .
 
 ### Run Container
 ```bash
-docker run -p 3000:3000 -e PORT=3000 baobab-server
+docker run -p 8081:8081 -e PORT=8081 baobab-server
 ```
 
 ## 🚂 Railway Deployment
 
-### Prerequisites
-1. Create a Railway account at [railway.app](https://railway.app)
-2. Install Railway CLI (optional but recommended)
+### Déployer en 3 étapes simple :
 
-### Deploy Steps
+1. **Connecter votre Repository**
+   - Allez sur [railway.app](https://railway.app)
+   - Cliquez "New Project" → "Deploy from GitHub repo"
+   - Sélectionnez `joelessam15-lab/baobab-server`
 
-1. **Connect Your Repository**
-   - Go to Railway dashboard
-   - Click "New Project" → "Deploy from GitHub repo"
-   - Select `joelessam15-lab/baobab-server`
-   - Click "Deploy"
+2. **Railway Auto-Détection**
+   - Railway détecte automatiquement que c'est un projet Node.js
+   - Installe les dépendances avec `npm install`
+   - Lance le serveur avec `npm start`
+   - Configure le port 8081
 
-2. **Railway Auto-Detection**
-   - Railway will automatically detect the Node.js project
-   - It will use `npm start` command from package.json
-   - The Dockerfile will be used if present
+3. **Obtenir votre URL Publique**
+   - Railway génère automatiquement une URL publique
+   - Votre API sera accessible sur le domaine fourni
+   - Exemple: `https://baobab-server-production.up.railway.app`
 
-3. **Environment Variables**
-   - In Railway dashboard, go to "Variables"
-   - Add any required variables from `.env.example`
-   - Example: `PORT=3000`, `NODE_ENV=production`
-
-4. **Access Your Server**
-   - Railway will generate a public URL automatically
-   - Your API will be accessible at the provided domain
-
-### Useful Railway Commands (CLI)
-```bash
-# Login to Railway
-railway login
-
-# Link project
-railway link
-
-# Deploy
-railway up
-
-# View logs
-railway logs
-
-# Set environment variables
-railway variable set PORT=3000
-```
+### Variables d'Environnement
+- `PORT=8081` (défaut si non spécifié)
 
 ## 📁 Project Structure
 
 ```
 baobab-server/
-├── server.js          # Main Express application
-├── package.json       # Project dependencies and scripts
-├── Dockerfile         # Docker configuration
-├── .env.example       # Environment variables template
-├── .gitignore         # Git ignore rules
-└── README.md          # This file
+├── server.js          # Application Express principale
+├── package.json       # Dépendances et scripts
+├── Dockerfile         # Configuration Docker
+├── .env.example       # Template de variables d'environnement
+├── .gitignore         # Règles Git ignore
+└── README.md          # Cette documentation
 ```
 
 ## 🔧 Configuration
 
-Copy `.env.example` to `.env` and update values as needed:
+Le serveur écoute sur le port défini par la variable `PORT` (défaut: 8081).
+
+## 📝 Développement Local
 
 ```bash
-cp .env.example .env
-```
-
-## 📝 Development
-
-To run the server in development mode:
-
-```bash
-# Install dev dependencies (optional)
+# Installer les dépendances
 npm install
 
-# Start the server
+# Démarrer le serveur
 npm start
+
+# Le serveur sera accessible sur http://localhost:8081
 ```
 
-The server will start on port 3000 (or PORT environment variable if set).
+## 🌐 Endpoints Disponibles
 
-## 🤝 Contributing
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /health | Vérifier l'état du serveur |
+| GET | /api/products | Liste des produits Baobab |
+| GET | /api/videos | Liste des modules vidéo |
 
-Pull requests are welcome! Please ensure your code follows the project standards.
+## 🤝 Ressources
 
-## 📄 License
+- [Railway Documentation](https://docs.railway.app)
+- [Express Documentation](https://expressjs.com)
+- [Node.js Documentation](https://nodejs.org/docs)
 
-This project is part of Baobab Digital Solutions.
+## 📄 Licence
+
+Baobab Digital Solutions
